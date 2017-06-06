@@ -22,6 +22,7 @@ namespace Polybool.Net
                             new Point(200,150)
                         }
                     }
+
                 }
             };
             var polySegments = poly.Segments();

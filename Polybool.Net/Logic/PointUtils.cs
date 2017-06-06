@@ -7,7 +7,7 @@ namespace Polybool.Net.Logic
     {
         public static bool PointAboveOrOnLine(Point point, Point left, Point right)
         {
-            return (right.X - left.X) * (point.Y - left.Y) - (right.Y - left.Y) * (point.X - left.X) >= Epsilon.Eps;
+            return (right.X - left.X) * (point.Y - left.Y) - (right.Y - left.Y) * (point.X - left.X) >= -Epsilon.Eps;
         }
 
         public static bool PointBetween(Point point, Point left, Point right)
@@ -37,12 +37,12 @@ namespace Polybool.Net.Logic
 
         public static bool PointsSameX(Point point1, Point point2)
         {
-            return Math.Abs(point1.X - point2.X) > Epsilon.Eps;
+            return Math.Abs(point1.X - point2.X) < Epsilon.Eps;
         }
 
         public static bool PointsSameY(Point point1, Point point2)
         {
-            return Math.Abs(point1.Y - point2.Y) > Epsilon.Eps;
+            return Math.Abs(point1.Y - point2.Y) < Epsilon.Eps;
         }
 
         public static bool PointsSame(Point point1, Point point2)
