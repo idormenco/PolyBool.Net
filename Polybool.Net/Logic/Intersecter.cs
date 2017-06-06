@@ -13,7 +13,7 @@ namespace Polybool.Net.Logic
             this.selfIntersection = selfIntersection;
         }
 
-        private readonly LinkedList event_root = new LinkedList();
+        private  LinkedList event_root = new LinkedList();
 
         protected Segment SegmentNew(Point start, Point end)
         {
@@ -494,6 +494,43 @@ namespace Polybool.Net.Logic
             }
 
             public RegionIntersecter() : base(true)
+            {
+            }
+        }
+        public class SegmentIntersecter : Intersecter
+        {
+            public void AddRegion(Region region)
+            {
+                // regions are a list of points:
+                //  [ [0, 0], [100, 0], [50, 100] ]
+                // you can add multiple regions before running calculate
+                Point pt1;
+                var pt2 = region.Points[region.Points.Count - 1];
+                for (var i = 0; i < region.Points.Count; i++)
+                {
+                    pt1 = pt2;
+                    pt2 = region.Points[i];
+
+                    var forward = PointUtils.PointsCompare(pt1, pt2);
+                    if (forward == 0) // points are equal, so we have a zero-length segment
+                        continue; // just skip it
+
+                    EventAddSegment(
+                        SegmentNew(
+                            forward < 0 ? pt1 : pt2,
+                            forward < 0 ? pt2 : pt1
+                        ),
+                        true
+                    );
+                }
+            }
+
+            internal List<Segment> Calculate(bool inverted)
+            {
+                return Calculate(inverted, false);
+            }
+
+            public SegmentIntersecter() : base(false)
             {
             }
         }

@@ -16,12 +16,10 @@ namespace Polybool.Net
                 { new Region{
                     Points = new List<Point>
                         {
-                            new Point(500,60),
-                            new Point(500,150),
-                            new Point(460,190),
-                            new Point(460,110),
-                            new Point(400,180),
-                            new Point(160,90)
+                            new Point(200,50),
+                            new Point(600,50),
+                            new Point(600,150),
+                            new Point(200,150)
                         }
                     }
                 }

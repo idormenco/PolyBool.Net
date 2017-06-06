@@ -4,7 +4,20 @@ namespace Polybool.Net.Objects
 {
     public class LinkedList
     {
-        public Node Root => new Node { IsRoot = true };
+        public LinkedList()
+        {
+            root = new Node { IsRoot = true };
+        }
+
+        private Node root;
+
+        public Node Root
+        {
+            get
+            {
+                return root;
+            }
+        }
 
         public bool Exists(Node node)
         {
