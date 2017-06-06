@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using Polybool.Net.Logic;
 using Polybool.Net.Objects;
 
 namespace Polybool.Net
@@ -23,8 +26,8 @@ namespace Polybool.Net
                     }
                 }
             };
-
-            
+            var polySegments = poly.Segments();
+            Console.Read();
         }
     }
 }

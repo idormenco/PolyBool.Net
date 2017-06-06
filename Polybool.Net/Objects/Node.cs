@@ -4,6 +4,12 @@ namespace Polybool.Net.Objects
 {
     public class Node : IEquatable<Node>
     {
+        public Node Status { get; set; }
+
+        public Node Other { get; set; }
+
+        public Node Ev { get; set; }
+
         public Node Previous { get; set; }
 
         public Node Next { get; set; }
@@ -11,6 +17,14 @@ namespace Polybool.Net.Objects
         public bool IsRoot { get; set; }
 
         public Action Remove { get; set; }
+
+        public bool IsStart { get; set; }
+
+        public Point Pt { get; set; }
+
+        public Segment Seg { get; set; }
+
+        public bool Primary { get; set; }
 
         public bool Equals(Node other)
         {

@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Intersecter.cs" />
     <Compile Include="Logic\PointUtils.cs" />
+    <Compile Include="Objects\IntersectionPoint.cs" />
     <Compile Include="Objects\Epsilon.cs" />
     <Compile Include="Objects\Fill.cs" />
     <Compile Include="Objects\LinkedList.cs" />

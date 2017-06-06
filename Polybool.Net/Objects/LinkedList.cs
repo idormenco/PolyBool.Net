@@ -72,7 +72,7 @@ namespace Polybool.Net.Objects
             };
         }
 
-        public Node Node(Node data)
+        public static Node Node(Node data)
         {
             data.Previous = null;
             data.Next = null;
