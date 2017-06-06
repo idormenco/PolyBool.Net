@@ -2,7 +2,7 @@
 
 namespace Polybool.Net.Objects
 {
-    public class Node:IEquatable<Node>
+    public class Node : IEquatable<Node>
     {
         public Node Previous { get; set; }
 
@@ -16,7 +16,7 @@ namespace Polybool.Net.Objects
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(Previous, other.Previous) && Equals(Next, other.Next) && IsRoot == other.IsRoot && Equals(Remove, other.Remove);
+            return Equals(Previous, other.Previous) && Equals(Next, other.Next) && IsRoot == other.IsRoot;
         }
 
         public override bool Equals(object obj)
@@ -24,7 +24,7 @@ namespace Polybool.Net.Objects
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Node) obj);
+            return Equals((Node)obj);
         }
 
         public override int GetHashCode()
@@ -34,7 +34,6 @@ namespace Polybool.Net.Objects
                 var hashCode = (Previous != null ? Previous.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Next != null ? Next.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ IsRoot.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Remove != null ? Remove.GetHashCode() : 0);
                 return hashCode;
             }
         }
