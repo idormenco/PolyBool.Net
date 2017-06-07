@@ -1,7 +1,7 @@
 # PolyBool.Net
 
 Boolean operations on polygons (union, intersection, difference, xor)
-(this library is a port for .net of [polybooljs]()
+(this library is a port for .net of [polybooljs](https://github.com/voidqk/polybooljs)
 # Features
 
 1. Clips polygons for all boolean operations
