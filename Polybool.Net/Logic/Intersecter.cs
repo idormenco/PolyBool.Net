@@ -13,7 +13,7 @@ namespace Polybool.Net.Logic
             this.selfIntersection = selfIntersection;
         }
 
-        private  LinkedList event_root = new LinkedList();
+        private LinkedList event_root = new LinkedList();
 
         protected Segment SegmentNew(Point start, Point end)
         {
@@ -74,29 +74,28 @@ namespace Polybool.Net.Logic
             });
         }
 
-        private int EventCompare(bool p1_isStart, Point p1_1, Point p1_2, bool p2_isStart, Point p2_1, Point p2_2)
+        private int EventCompare(bool p1_isStart, Point p11, Point p12, bool p2IsStart, Point p21, Point p22)
         {
             // compare the selected points first
-            var comp = PointUtils.PointsCompare(p1_1, p2_1);
+            var comp = PointUtils.PointsCompare(p11, p21);
             if (comp != 0)
                 return comp;
             // the selected points are the same
 
-            if (PointUtils.PointsSame(p1_2, p2_2)) // if the non-selected points are the same too...
+            if (PointUtils.PointsSame(p12, p22)) // if the non-selected points are the same too...
                 return 0; // then the segments are equal
 
-            if (p1_isStart != p2_isStart) // if one is a start and the other isn"t...
+            if (p1_isStart != p2IsStart) // if one is a start and the other isn"t...
                 return p1_isStart ? 1 : -1; // favor the one that isn"t the start
 
             // otherwise, we"ll have to calculate which one is below the other manually
-            return PointUtils.PointAboveOrOnLine(p1_2,
-                p2_isStart ? p2_1 : p2_2, // order matters
-                p2_isStart ? p2_2 : p2_1
+            return PointUtils.PointAboveOrOnLine(p12,
+                p2IsStart ? p21 : p22, // order matters
+                p2IsStart ? p22 : p21
             )
                 ? 1
                 : -1;
         }
-
 
         private int StatusCompare(Node ev1, Node ev2)
         {
@@ -114,7 +113,6 @@ namespace Polybool.Net.Logic
             return PointUtils.PointAboveOrOnLine(a1, b1, b2) ? 1 : -1;
         }
 
-
         private Transition StatusFindSurrounding(LinkedList status_root, Node ev)
         {
             return status_root.FindTransition((here) =>
@@ -124,7 +122,7 @@ namespace Polybool.Net.Logic
             });
         }
 
-        public Segment segmentCopy(Point start, Point end, Segment seg)
+        public Segment SegmentCopy(Point start, Point end, Segment seg)
         {
             return new Segment()
             {
@@ -139,7 +137,7 @@ namespace Polybool.Net.Logic
             };
         }
 
-        private void eventUpdateEnd(Node ev, Point end)
+        private void EventUpdateEnd(Node ev, Point end)
         {
             // slides an end backwards
             //   (start)------------(end)    to:
@@ -152,11 +150,10 @@ namespace Polybool.Net.Logic
             EventAdd(ev.Other, ev.Pt);
         }
 
-
-        private Node eventDivide(Node ev, Point pt)
+        private Node EventDivide(Node ev, Point pt)
         {
-            var ns = segmentCopy(pt, ev.Seg.End, ev.Seg);
-            eventUpdateEnd(ev, pt);
+            var ns = SegmentCopy(pt, ev.Seg.End, ev.Seg);
+            EventUpdateEnd(ev, pt);
             return EventAddSegment(ns, ev.Primary);
         }
 
@@ -201,13 +198,13 @@ namespace Polybool.Net.Logic
                     {
                         //  (a1)---(a2)
                         //  (b1)----------(b2)
-                        eventDivide(ev2, a2);
+                        EventDivide(ev2, a2);
                     }
                     else
                     {
                         //  (a1)----------(a2)
                         //  (b1)---(b2)
-                        eventDivide(ev1, b2);
+                        EventDivide(ev1, b2);
                     }
                     return ev2;
                 }
@@ -220,19 +217,19 @@ namespace Polybool.Net.Logic
                         {
                             //         (a1)---(a2)
                             //  (b1)-----------------(b2)
-                            eventDivide(ev2, a2);
+                            EventDivide(ev2, a2);
                         }
                         else
                         {
                             //         (a1)----------(a2)
                             //  (b1)----------(b2)
-                            eventDivide(ev1, b2);
+                            EventDivide(ev1, b2);
                         }
                     }
 
                     //         (a1)---(a2)
                     //  (b1)----------(b2)
-                    eventDivide(ev2, a1);
+                    EventDivide(ev2, a1);
                 }
             }
             else
@@ -243,29 +240,28 @@ namespace Polybool.Net.Logic
                 if (i.AlongA == 0)
                 {
                     if (i.AlongB == -1) // yes, at exactly b1
-                        eventDivide(ev1, b1);
+                        EventDivide(ev1, b1);
                     else if (i.AlongB == 0) // yes, somewhere between B"s endpoints
-                        eventDivide(ev1, i.Pt);
+                        EventDivide(ev1, i.Pt);
                     else if (i.AlongB == 1) // yes, at exactly b2
-                        eventDivide(ev1, b2);
+                        EventDivide(ev1, b2);
                 }
 
                 // is B divided between its endpoints? (exclusive)
                 if (i.AlongB == 0)
                 {
                     if (i.AlongA == -1) // yes, at exactly a1
-                        eventDivide(ev2, a1);
+                        EventDivide(ev2, a1);
                     else if (i.AlongA == 0) // yes, somewhere between A"s endpoints (exclusive)
-                        eventDivide(ev2, i.Pt);
+                        EventDivide(ev2, i.Pt);
                     else if (i.AlongA == 1) // yes, at exactly a2
-                        eventDivide(ev2, a2);
+                        EventDivide(ev2, a2);
                 }
             }
             return null;
         }
 
-
-        public Node checkBothIntersections(Node above, Node ev, Node below)
+        public Node CheckBothIntersections(Node above, Node ev, Node below)
         {
             if (above != null)
             {
@@ -308,7 +304,7 @@ namespace Polybool.Net.Logic
                     var below = surrounding.After != null ? surrounding.After.Ev : null;
 
 
-                    var eve = checkBothIntersections(above, ev, below);
+                    var eve = CheckBothIntersections(above, ev, below);
                     if (eve != null)
                     {
                         // ev and eve are equal
@@ -525,9 +521,19 @@ namespace Polybool.Net.Logic
                 }
             }
 
-            internal List<Segment> Calculate(bool inverted)
+            internal List<Segment> Calculate(List<Segment> segments1, bool isInverted1, List<Segment> segments2, bool isInverted2)
             {
-                return Calculate(inverted, false);
+                // returns segments that can be used for further operations
+                foreach (var segment in segments1)
+                {
+                    EventAddSegment(segment, true);
+                }
+                foreach (var segment in segments2)
+                {
+                    EventAddSegment(segment, false);
+                }
+
+                return Calculate(isInverted1, isInverted2);
             }
 
             public SegmentIntersecter() : base(false)

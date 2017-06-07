@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="Logic\Intersecter.cs" />
     <Compile Include="Logic\PointUtils.cs" />
+    <Compile Include="Logic\SegmentSelector.cs" />
+    <Compile Include="Objects\CombinedPolySegments.cs" />
     <Compile Include="Objects\IntersectionPoint.cs" />
     <Compile Include="Objects\Epsilon.cs" />
     <Compile Include="Objects\Fill.cs" />
