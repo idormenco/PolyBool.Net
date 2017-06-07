@@ -20,6 +20,7 @@ namespace Polybool.Net.Logic
             source.RemoveRange(index, count);
             return source;
         }
+
         public static T[] Push<T>(this T[] source, T elem)
         {
             var lst = source.ToList();
