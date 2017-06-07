@@ -17,9 +17,8 @@ namespace Polybool.Net.Logic
 
         public static List<T> Splice<T>(this List<T> source, int index, int count)
         {
-            var items = source.GetRange(index, count);
             source.RemoveRange(index, count);
-            return items;
+            return source;
         }
         public static T[] Push<T>(this T[] source, T elem)
         {
