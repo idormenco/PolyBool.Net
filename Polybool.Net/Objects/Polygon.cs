@@ -2,14 +2,14 @@
 
 namespace Polybool.Net.Objects
 {
-    public class Poligon
+    public class Polygon
     {
-        public Poligon()
+        public Polygon()
         {
             Regions = new List<Region>();
         }
 
-        public Poligon(List<Region> regions, bool inverted)
+        public Polygon(List<Region> regions, bool inverted)
         {
             Regions = regions;
             Inverted = inverted;

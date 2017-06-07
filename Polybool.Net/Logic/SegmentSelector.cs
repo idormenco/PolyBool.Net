@@ -4,7 +4,7 @@ namespace Polybool.Net.Logic
 {
     using System.Collections.Generic;
 
-    public class SegmentSelector
+    public static class SegmentSelector
     {
         public static List<Segment> Union(List<Segment> segments)
         {
@@ -24,13 +24,19 @@ namespace Polybool.Net.Logic
             });
         }
 
-        public static List<Segment> Difference(List<Segment> segments)
+        public static PolySegments Difference(CombinedPolySegments combined)
         {
-            return Select(segments, new[] {   0, 0, 0, 0,
-                2, 0, 2, 0,
-                1, 1, 0, 0,
-                0, 1, 2, 0
-            });
+            return new PolySegments()
+            {
+                Segments = Select(combined.Combined, new[]
+                {
+                    0, 0, 0, 0,
+                    2, 0, 2, 0,
+                    1, 1, 0, 0,
+                    0, 1, 2, 0
+                }),
+                IsInverted = !combined.IsInverted1 && combined.IsInverted2
+            };
         }
 
         public static List<Segment> DifferenceRev(List<Segment> segments)

@@ -10,7 +10,7 @@ namespace Polybool.Net
     {
         private static void Main(string[] args)
         {
-            var poly1 = new Poligon
+            var poly1 = new Polygon
             {
                 Regions = new List<Region>
                 { new Region{
@@ -25,7 +25,7 @@ namespace Polybool.Net
 
                 }
             };
-            var poly2 = new Poligon
+            var poly2 = new Polygon
             {
                 Regions = new List<Region>
                 { new Region{
@@ -43,8 +43,9 @@ namespace Polybool.Net
             var seg1 = PolyBool.Segments(poly1);
             var seg2 = PolyBool.Segments(poly2);
             var comb = PolyBool.Combine(seg1, seg2);
-            List<Segment> difference = SegmentSelector.Difference(comb.Combined);
-            Console.Read();
+            var seg3 = SegmentSelector.Difference(comb);
+            var pol = PolyBool.Polygon(seg3);
+            int a = 0;
         }
     }
 }

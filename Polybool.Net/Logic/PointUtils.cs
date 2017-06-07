@@ -59,9 +59,13 @@ namespace Polybool.Net.Logic
             return point1.X < point2.X ? -1 : 1;
         }
 
-        public static bool PointsCollinear(Point point1, Point point2, Point point3)
+        public static bool PointsCollinear(Point pt1, Point pt2, Point pt3)
         {
-            return Math.Abs((point1.X - point2.X) * (point1.Y - point2.Y) - (point2.X - point3.X) * (point2.Y - point3.Y)) < Epsilon.Eps;
+            var dx1 = pt1.X - pt2.X;
+            var dy1 = pt1.Y - pt2.Y;
+            var dx2 = pt2.X - pt3.X;
+            var dy2 = pt2.Y - pt3.Y;
+            return Math.Abs(dx1 * dy2 - dx2 * dy1) < Epsilon.Eps;
         }
 
         public static IntersectionPoint LinesIntersect(Point a0, Point a1, Point b0, Point b1)
