@@ -117,11 +117,11 @@ namespace Polybool.Net.Logic
                         // grow2 ---grow---> pt
                         if (addToHead)
                         {
-                            chain.Shift();
+                            chains[index]= chain.Shift();
                         }
                         else
                         {
-                            chain.Pop();
+                            chains[index]=chain.Pop();
                         }
                         grow = grow2; // old grow is gone... new grow is what grow2 was
                     }
@@ -137,11 +137,11 @@ namespace Polybool.Net.Logic
                             // oppo2 ---oppo--->grow
                             if (addToHead)
                             {
-                                chain.Pop();
+                                chains[index]= chain.Pop();
                             }
                             else
                             {
-                                chain.Shift();
+                                chains[index]=chain.Shift();
                             }
                         }
 
@@ -153,11 +153,11 @@ namespace Polybool.Net.Logic
                     // not closing a loop, so just add it to the apporpriate side
                     if (addToHead)
                     {
-                        chain = chain.Unshift(pt);
+                        chains[index] = chain.Unshift(pt);
                     }
                     else
                     {
-                        chain = chain.Push(pt);
+                        chains[index] = chain.Push(pt);
                     }
                     continue;
                 }
@@ -183,7 +183,7 @@ namespace Polybool.Net.Logic
                     {
                         // tail isn't needed because it's directly between tail2 and head
                         // tail2 ---tail---> head
-                        chain1.Pop();
+                        chains[index1] = chain1.Pop();
                         tail = tail2; // old tail is gone... new tail is what tail2 was
                     }
 
@@ -191,7 +191,7 @@ namespace Polybool.Net.Logic
                     {
                         // head isn't needed because it's directly between tail and head2
                         // tail ---head---> head2
-                        chain2.Shift();
+                        chains[index1] = chain2.Shift();
                     }
                     chains[index1] = chain1.Concat(chain2).ToArray();
                     chains.Splice(index2, 1);

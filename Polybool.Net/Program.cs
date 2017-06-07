@@ -31,10 +31,10 @@ namespace Polybool.Net
                 { new Region{
                     Points = new List<Point>
                         {
-                            new Point(300,150),
-                            new Point(500,100),
-                            new Point(500,200),
-                            new Point(300,200)
+                            new Point(300L,150L),
+                            new Point(500L,100L),
+                            new Point(500L,200L),
+                            new Point(300L,200L)
                         }
                     }
 
