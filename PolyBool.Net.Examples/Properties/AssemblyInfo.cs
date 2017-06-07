@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Polybool.Net")]
+[assembly: AssemblyTitle("PolyBool.Net.Examples")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Polybool.Net")]
+[assembly: AssemblyProduct("PolyBool.Net.Examples")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5fb7c719-ba44-48da-8384-1796a5cf3ff6")]
+[assembly: Guid("673e2268-9bb0-4e9c-9948-395b80cfb5c9")]
 
 // Version information for an assembly consists of the following four values:
 //

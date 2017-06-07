@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5FB7C719-BA44-48DA-8384-1796A5CF3FF6}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{673E2268-9BB0-4E9C-9948-395B80CFB5C9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Polybool.Net</RootNamespace>
-    <AssemblyName>Polybool.Net</AssemblyName>
+    <RootNamespace>PolyBool.Net.Examples</RootNamespace>
+    <AssemblyName>PolyBool.Net.Examples</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -32,9 +33,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,28 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logic\Intersecter.cs" />
-    <Compile Include="Logic\PointUtils.cs" />
-    <Compile Include="Logic\SegmentSelector.cs" />
-    <Compile Include="Logic\Utils.cs" />
-    <Compile Include="Objects\CombinedPolySegments.cs" />
-    <Compile Include="Objects\IntersectionPoint.cs" />
-    <Compile Include="Objects\Epsilon.cs" />
-    <Compile Include="Objects\Fill.cs" />
-    <Compile Include="Objects\LinkedList.cs" />
-    <Compile Include="Objects\Matcher.cs" />
-    <Compile Include="Objects\Node.cs" />
-    <Compile Include="Objects\Point.cs" />
-    <Compile Include="Objects\Polygon.cs" />
-    <Compile Include="Logic\PolyBool.cs" />
-    <Compile Include="Objects\Transition.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Objects\Region.cs" />
-    <Compile Include="Objects\PolySegments.cs" />
-    <Compile Include="Objects\Segment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Polybool.Net\Polybool.Net.csproj">
+      <Project>{5fb7c719-ba44-48da-8384-1796a5cf3ff6}</Project>
+      <Name>Polybool.Net</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

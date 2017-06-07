@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Polybool.Net.Logic
 {
-    public static class Utils
+    internal static class Utils
     {
         public static T[] Shift<T>(this T[] arr)
         {
@@ -30,7 +30,7 @@ namespace Polybool.Net.Logic
 
         public static T[] Unshift<T>(this T[] source, T elem)
         {
-            var lst = new T[] { elem }.ToList();
+            var lst = new[] { elem }.ToList();
             lst.AddRange(source);
             return lst.ToArray();
         }

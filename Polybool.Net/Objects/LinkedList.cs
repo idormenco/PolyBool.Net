@@ -6,22 +6,14 @@ namespace Polybool.Net.Objects
     {
         public LinkedList()
         {
-            root = new Node { IsRoot = true };
+            Root = new Node { IsRoot = true };
         }
 
-        private Node root;
-
-        public Node Root
-        {
-            get
-            {
-                return root;
-            }
-        }
+        private Node Root { get; }
 
         public bool Exists(Node node)
         {
-            if (node == null || node == Root)
+            if (node == null || Equals(node, Root))
                 return false;
             return true;
         }
@@ -60,24 +52,24 @@ namespace Polybool.Net.Objects
 
         public Transition FindTransition(Func<Node, bool> check)
         {
-            var prev = Root;
+            var previous = Root;
             var here = Root.Next;
             while (here != null)
             {
                 if (check(here))
                     break;
-                prev = here;
+                previous = here;
                 here = here.Next;
             }
             return new Transition
             {
-                Before = prev == Root ? null : prev,
+                Before = Equals(previous, Root) ? null : previous,
                 After = here,
                 Insert = node =>
                 {
-                    node.Previous = prev;
+                    node.Previous = previous;
                     node.Next = here;
-                    prev.Next = node;
+                    previous.Next = node;
                     if (here != null)
                         here.Previous = node;
                     return node;

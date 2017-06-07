@@ -14,19 +14,19 @@ namespace Polybool.Net.Logic
         {
             // p must be collinear with left->right
             // returns false if p == left, p == right, or left == right
-            decimal d_py_ly = point.Y - left.Y;
-            decimal d_rx_lx = right.X - left.X;
-            decimal d_px_lx = point.X - left.X;
-            decimal d_ry_ly = right.Y - left.Y;
+            decimal dPyLy = point.Y - left.Y;
+            decimal dRxLx = right.X - left.X;
+            decimal dPxLx = point.X - left.X;
+            decimal dRyLy = right.Y - left.Y;
 
-            decimal dot = d_px_lx * d_rx_lx + d_py_ly * d_ry_ly;
+            decimal dot = dPxLx * dRxLx + dPyLy * dRyLy;
 
             if (dot < Epsilon.Eps)
             {
                 return false;
             }
 
-            decimal sqlen = d_rx_lx * d_rx_lx + d_ry_ly * d_ry_ly;
+            decimal sqlen = dRxLx * dRxLx + dRyLy * dRyLy;
             if (dot - sqlen > -Epsilon.Eps)
             {
                 return false;
@@ -35,12 +35,12 @@ namespace Polybool.Net.Logic
             return true;
         }
 
-        public static bool PointsSameX(Point point1, Point point2)
+        private static bool PointsSameX(Point point1, Point point2)
         {
             return Math.Abs(point1.X - point2.X) < Epsilon.Eps;
         }
 
-        public static bool PointsSameY(Point point1, Point point2)
+        private static bool PointsSameY(Point point1, Point point2)
         {
             return Math.Abs(point1.Y - point2.Y) < Epsilon.Eps;
         }
@@ -91,7 +91,7 @@ namespace Polybool.Net.Logic
             return new IntersectionPoint(CalcAlongUsingValue(a), CalcAlongUsingValue(b), new Point(a0.X + a * adx, a0.Y + a * ady));
         }
 
-        public static int CalcAlongUsingValue(decimal value)
+        private static int CalcAlongUsingValue(decimal value)
         {
             if (value <= -Epsilon.Eps)
             {

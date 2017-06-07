@@ -1,9 +1,10 @@
 ﻿using Polybool.Net.Objects;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Polybool.Net.Logic
 {
-    using System.Collections.Generic;
-
+    [SuppressMessage("ReSharper", "PossibleInvalidOperationException")]
     public static class SegmentSelector
     {
         public static List<Segment> Union(List<Segment> segments)
@@ -26,7 +27,7 @@ namespace Polybool.Net.Logic
 
         public static PolySegments Difference(CombinedPolySegments combined)
         {
-            return new PolySegments()
+            return new PolySegments
             {
                 Segments = Select(combined.Combined, new[]
                 {
@@ -70,16 +71,15 @@ namespace Polybool.Net.Logic
 
                 if (selection[index] != 0)
                 {
-                    result.Add(new Segment()
+                    result.Add(new Segment
                     {
                         Start = segment.Start,
                         End = segment.End,
-                        MyFill = new Fill()
+                        MyFill = new Fill
                         {
                             Above = selection[index] == 1,
                             Below = selection[index] == 2
-                        },
-
+                        }
                     });
                 }
             }
