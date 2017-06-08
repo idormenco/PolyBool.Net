@@ -5,34 +5,29 @@ namespace Polybool.Net.Logic
 {
     internal static class Utils
     {
-        public static void Shift<T>(this T[] arr)
+        public static void Shift<T>(this List<T> lst)
         {
-            arr = arr.Skip(1).ToArray();
+            lst.RemoveAt(0);
         }
 
-        public static void Pop<T>(this T[] arr)
+        public static void Pop<T>(this List<T> lst)
         {
-            arr = arr.Take(arr.Length - 1).ToArray();
+            lst.RemoveAt(lst.Count-1);
         }
 
-        public static List<T> Splice<T>(this List<T> source, int index, int count)
+        public static void Splice<T>(this List<T> source, int index, int count)
         {
             source.RemoveRange(index, count);
-            return source;
         }
 
-        public static void Push<T>(this T[] source, T elem)
+        public static void Push<T>(this List<T> source, T elem)
         {
-            var lst = source.ToList();
-            lst.Add(elem);
-            source = lst.ToArray();
+            source.Add(elem);
         }
 
-        public static void Unshift<T>(this T[] source, T elem)
+        public static void Unshift<T>(this List<T> source, T elem)
         {
-            var lst = new[] { elem }.ToList();
-            lst.AddRange(source);
-            source = lst.ToArray();
+            source.Insert(0, elem);
         }
     }
 }

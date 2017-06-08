@@ -14,7 +14,7 @@ namespace Polybool.Net.Logic
         private static List<Region> SegmentChainer(List<Segment> segments)
         {
             List<Region> regions = new List<Region>();
-            List<Point[]> chains = new List<Point[]>();
+            List<List<Point>> chains = new List<List<Point>>();
 
             foreach (Segment seg in segments)
             {
@@ -62,9 +62,9 @@ namespace Polybool.Net.Logic
 
                 for (int i = 0; i < chains.Count; i++)
                 {
-                    Point[] chain = chains[i];
+                    List<Point> chain = chains[i];
                     Point head = chain[0];
-                    Point tail = chain[chain.Length - 1];
+                    Point tail = chain[chain.Count - 1];
                     if (PointUtils.PointsSame(head, pt1))
                     {
                         if (setMatch(i, true, true))
@@ -98,7 +98,7 @@ namespace Polybool.Net.Logic
                 if (Equals(nextMatch, firstMatch))
                 {
                     // we didn't match anything, so create a new chain
-                    chains.Add(new[] { pt1, pt2 });
+                    chains.Add(new List<Point> { pt1, pt2 });
                     continue;
                 }
 
@@ -113,11 +113,11 @@ namespace Polybool.Net.Logic
                     Point pt = firstMatch.MatchesPt1 ? pt2 : pt1; // if we matched pt1, then we add pt2, etc
                     bool addToHead = firstMatch.MatchesHead; // if we matched at head, then add to the head
 
-                    Point[] chain = chains[index];
-                    Point grow = addToHead ? chain[0] : chain[chain.Length - 1];
-                    Point grow2 = addToHead ? chain[1] : chain[chain.Length - 2];
-                    Point oppo = addToHead ? chain[chain.Length - 1] : chain[0];
-                    Point oppo2 = addToHead ? chain[chain.Length - 2] : chain[1];
+                    List<Point> chain = chains[index];
+                    Point grow = addToHead ? chain[0] : chain[chain.Count - 1];
+                    Point grow2 = addToHead ? chain[1] : chain[chain.Count - 2];
+                    Point oppo = addToHead ? chain[chain.Count - 1] : chain[0];
+                    Point oppo2 = addToHead ? chain[chain.Count - 2] : chain[1];
 
                     if (PointUtils.PointsCollinear(grow2, grow, pt))
                     {
@@ -137,7 +137,7 @@ namespace Polybool.Net.Logic
                     if (PointUtils.PointsSame(oppo, pt))
                     {
                         // we're closing the loop, so remove chain from chains
-                        chains = chains.Splice(index, 1);
+                        chains.Splice(index, 1);
 
                         if (PointUtils.PointsCollinear(oppo2, oppo, grow))
                         {
@@ -174,16 +174,16 @@ namespace Polybool.Net.Logic
 
                 Action<int> reverseChain = (index) =>
                 {
-                    chains[index] = chains[index].Reverse().ToArray(); // gee, that's easy
+                    chains[index].Reverse(); // gee, that's easy
                 };
 
                 Action<int, int> appendChain = (index1, index2) =>
                 {
                     // index1 gets index2 appended to it, and index2 is removed
-                    Point[] chain1 = chains[index1];
-                    Point[] chain2 = chains[index2];
-                    Point tail = chain1[chain1.Length - 1];
-                    Point tail2 = chain1[chain1.Length - 2];
+                    List<Point> chain1 = chains[index1];
+                    List<Point> chain2 = chains[index2];
+                    Point tail = chain1[chain1.Count - 1];
+                    Point tail2 = chain1[chain1.Count - 2];
                     Point head = chain2[0];
                     Point head2 = chain2[1];
 
@@ -201,7 +201,7 @@ namespace Polybool.Net.Logic
                         // tail ---head---> head2
                         chain2.Shift();
                     }
-                    chains[index1] = chain1.Concat(chain2).ToArray();
+                    chains[index1] = chain1.Concat(chain2).ToList();
                     chains.Splice(index2, 1);
                 };
 
@@ -209,7 +209,7 @@ namespace Polybool.Net.Logic
                 int s = secondMatch.Index;
 
 
-                bool reverseF = chains[f].Length < chains[s].Length; // reverse the shorter chain, if needed
+                bool reverseF = chains[f].Count < chains[s].Count; // reverse the shorter chain, if needed
                 if (firstMatch.MatchesHead)
                 {
                     if (secondMatch.MatchesHead)
@@ -297,7 +297,7 @@ namespace Polybool.Net.Logic
 
         public static Polygon Polygon(PolySegments polySegments)
         {
-            return new Polygon()
+            return new Polygon
             {
                 Regions = SegmentChainer(polySegments.Segments),
                 Inverted = polySegments.IsInverted
