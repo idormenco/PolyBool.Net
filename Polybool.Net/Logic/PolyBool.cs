@@ -46,8 +46,8 @@ namespace Polybool.Net.Logic
 
                 Func<int, bool, bool, bool> setMatch = (index, matchesHead, matchesPt1) =>
                  {
-                    // return true if we've matched twice
-                    nextMatch.Index = index;
+                     // return true if we've matched twice
+                     nextMatch.Index = index;
                      nextMatch.MatchesHead = matchesHead;
                      nextMatch.MatchesPt1 = matchesPt1;
                      if (Equals(nextMatch, firstMatch))
@@ -57,7 +57,7 @@ namespace Polybool.Net.Logic
                      }
                      nextMatch = null;
                      return true; // we've matched twice, we're done here
-                };
+                 };
 
 
                 for (int i = 0; i < chains.Count; i++)
@@ -125,11 +125,11 @@ namespace Polybool.Net.Logic
                         // grow2 ---grow---> pt
                         if (addToHead)
                         {
-                            chains[index]= chain.Shift();
+                            chain.Shift();
                         }
                         else
                         {
-                            chains[index]=chain.Pop();
+                            chain.Pop();
                         }
                         grow = grow2; // old grow is gone... new grow is what grow2 was
                     }
@@ -145,27 +145,27 @@ namespace Polybool.Net.Logic
                             // oppo2 ---oppo--->grow
                             if (addToHead)
                             {
-                                chains[index]= chain.Pop();
+                                chain.Pop();
                             }
                             else
                             {
-                                chains[index]=chain.Shift();
+                                chain.Shift();
                             }
                         }
 
                         // we have a closed chain!
-                        regions.Add(new Region() {Points = chain.ToList()});
+                        regions.Add(new Region() { Points = chain.ToList() });
                         continue;
                     }
 
                     // not closing a loop, so just add it to the apporpriate side
                     if (addToHead)
                     {
-                        chains[index] = chain.Unshift(pt);
+                        chain.Unshift(pt);
                     }
                     else
                     {
-                        chains[index] = chain.Push(pt);
+                        chain.Push(pt);
                     }
                     continue;
                 }
@@ -191,7 +191,7 @@ namespace Polybool.Net.Logic
                     {
                         // tail isn't needed because it's directly between tail2 and head
                         // tail2 ---tail---> head
-                        chains[index1] = chain1.Pop();
+                        chain1.Pop();
                         tail = tail2; // old tail is gone... new tail is what tail2 was
                     }
 
@@ -199,7 +199,7 @@ namespace Polybool.Net.Logic
                     {
                         // head isn't needed because it's directly between tail and head2
                         // tail ---head---> head2
-                        chains[index1] = chain2.Shift();
+                        chain2.Shift();
                     }
                     chains[index1] = chain1.Concat(chain2).ToArray();
                     chains.Splice(index2, 1);
