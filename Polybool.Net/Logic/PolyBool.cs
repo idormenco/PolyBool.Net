@@ -7,11 +7,9 @@ using Polybool.Net.Objects;
 
 namespace Polybool.Net.Logic
 {
-    [SuppressMessage("ReSharper", "AccessToModifiedClosure")]
     public static class PolyBool
     {
-
-        private static List<Region> SegmentChainer(List<Segment> segments)
+        internal static List<Region> SegmentChainer(List<Segment> segments)
         {
             List<Region> regions = new List<Region>();
             List<List<Point>> chains = new List<List<Point>>();
@@ -303,5 +301,7 @@ namespace Polybool.Net.Logic
                 Inverted = polySegments.IsInverted
             };
         }
+
+
     }
 }

@@ -9,6 +9,12 @@ namespace Polybool.Net.Objects
             Regions = new List<Region>();
         }
 
+        public Polygon(List<Region> regions, bool isInverted = false)
+        {
+            Regions = regions;
+            Inverted = isInverted;
+        }
+
         public List<Region> Regions { get; set; }
         public bool Inverted { get; set; }
     }
