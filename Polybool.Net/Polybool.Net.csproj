@@ -10,6 +10,7 @@
     <RootNamespace>Polybool.Net</RootNamespace>
     <AssemblyName>Polybool.Net</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFramework>net5.0</TargetFramework>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
